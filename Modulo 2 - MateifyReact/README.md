@@ -23,8 +23,8 @@ Les daremos una devolución personal a cada uno y además cargaremos una devoluc
 
 ## Cronograma
 
-- Presentación del proyecto - Martes 12 Agosto
-- Análisis de requerimientos en conjunto - Martes 12 de Agosto
+- Presentación del proyecto - Martes 11 Agosto
+- Análisis de requerimientos en conjunto - Martes 11 de Agosto
 - Pre entrega (repositorio creado y avance hasta ese día pusheado) - Lunes 17 de Agosto
 - Feedback de pre entrega - Martes 18 y Miercoles 19 de Agosto
 - Entrega final - Viernes 21 de Agosto
