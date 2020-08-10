@@ -76,3 +76,5 @@ Nota: El resto de los botones de la pantalla, no debén tener funcionalidad, sol
 - Al presionar en el botón "Agregar" en los resultados de búsqueda, se deberá agregar la canción a la playlist que se está creando. Se valorará **(opcional)** hacer un control de no agregar canciones repetidas a la lista.
 
 - En la playlist, se deberá contar con dos botones para votar o eliminar voto de las canciones agregadas. Al presionarlos la lista se debe ir ordenado de forma descendete, las canciones con más votos primero.
+
+Reto: Agregar un botón eliminar canción en la playlist que permita eliminar la canción de la misma.
