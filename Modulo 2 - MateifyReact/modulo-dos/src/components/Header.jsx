@@ -3,7 +3,6 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Appbar from '@material-ui/core/Appbar';
 import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
 import mateify from '../images/mateify.png';
 
 const useStyles = makeStyles({

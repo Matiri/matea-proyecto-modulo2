@@ -2,10 +2,35 @@ import React, {useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import padlock from '../images/padlock.png';
 import Card from '@material-ui/core/Card';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
   playlist: {
-    marginTop: 100,
+    marginTop: '25%',
+    marginLeft: '12%',
+    width: 832,
+    height: 391,
+  },
+
+  playlist_noLoginSign: {
+    marginTop: '8%',
+  },
+
+  playlist_padlock: {
+    marginBottom: 70,
+    width: 252,
+    height: 215.65,
+  },
+
+  playlist_noLoginText: {
+    fontWeight: 'bold',
+    display: 'inline-block',
+  },
+
+  playlist_noLoginText_span: {
+    fontWeight: 'normal',
+    display: 'block',
+    fontSize: 20,
   }
 })  
 
@@ -43,7 +68,10 @@ export const Playlist = () => {
   const classes = useStyles();
   return(
       <Card className = {classes.playlist}>
-        <img src = {padlock}></img>
+        <div className = {classes.playlist_noLoginSign}>
+          <img src = {padlock} className = {classes.playlist_padlock}></img>
+          <Typography className = {classes.playlist_noLoginText} variant = 'h4'>Mmm... algo no salió bien<span className = {classes.playlist_noLoginText_span}>Debes de estar autenticado para acceder a esta página</span></Typography>
+        </div>
       </Card>
   )
 }

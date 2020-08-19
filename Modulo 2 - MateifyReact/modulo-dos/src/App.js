@@ -15,15 +15,30 @@ import { Login } from './components/Login';
 import { Playlist } from './components/Playlist';
 
 const useStyles = makeStyles({
+  header: {
+    backgroundColor: '#009688',
+    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.24)',
+    alignItems: 'center',
+  },
+
   header_image: {
     height: 33,
     width: 37,
+    marginBottom: 5,
   },
 
   link: {
-    width: 220,
+    width: 131,
     height: 64,
+    marginTop: 21,
   },
+
+  header_mateify: {
+    display: 'inline-block',
+    color: '#ffffff',
+    fontFamily: "'Righteous'",
+    marginLeft: 5,
+  }
 })
 
 function App() {
@@ -33,7 +48,7 @@ function App() {
     <div className = 'container'>
       <Router>
         <div>
-          <Appbar>
+          <Appbar className = {classes.header}>
             <NavLink className = {classes.link} to = '/login'>
               <img src = {mateify} alt = '' className = {classes.header_image}></img>
               <Typography className = {classes.header_mateify} variant = 'h5'>
