@@ -81,7 +81,7 @@ const useStyles = makeStyles({
 export const Login = () => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
-  const [snackbar, setSnackbar] = React.useState(false)
+  const [snackbar, setSnackbar] = React.useState(false);
   const history = useHistory();
 
   const updateNameValue = e => {
@@ -106,7 +106,6 @@ export const Login = () => {
     // 4. HACER CONSOLE.LOG COMO PRUEBA
     // 5. UN IF QUE CHEQUEA QUE HAYA AL MENOS UNA COINCIDENCIA
     console.log(datos);
-    //const usuarioExiste = datos.some(checkUsers);
     const checkUserCondition = datos.filter(checkUsers);
     console.log(checkUserCondition);
     if(checkUserCondition.length > 0){
