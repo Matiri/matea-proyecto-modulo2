@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import padlock from '../images/padlock.png';
 import playlist from '../base-de-datos/songData.json';
@@ -8,10 +8,13 @@ import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import SearchIcon from '@material-ui/icons/Search';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
+import ThumbDownAltIcon from '@material-ui/icons/ThumbDownAlt';
 import Table from '@material-ui/core/Table';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import TableBody from '@material-ui/core/TableBody';
 import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles({
@@ -109,6 +112,18 @@ const useStyles = makeStyles({
 export const Playlist = () => {
   const [search, setSearch] = useState('');
   const [result, setResult] = useState([]);
+  const [tuPlaylist, setTuPlaylist] = useState([]);
+  const [vote, setVote] = useState('0');
+  let voto = 1;
+
+  useEffect(() => {
+    console.log(voto);
+    if(vote === '1'){
+      voto++;
+    } else if(vote === '2'){
+      voto--;
+    }
+  }, [vote])
 
   const updateSearch = e => {
     setSearch(e.target.value);
@@ -126,34 +141,35 @@ export const Playlist = () => {
     if(e.key === 'Enter') {
       const checkSearch = playlist.filter(checkSong);
       if(checkSearch.length > 0){
-        setResult([
-          checkSearch[0].name,
-          checkSearch[0].artist.name,
-          checkSearch[0].album,
-          checkSearch[0].duration,
-        ]);
+        setResult(checkSearch);
       }
     }
   }
 
+  const agregar = (cancion) => {
+    setTuPlaylist([...tuPlaylist, cancion]);
+    setResult([]);
+  }
+
   const renderResult = () => {
     if(result.length > 0){
-      return(
-        <TableRow>
-          <TableCell>{result[0]}</TableCell>
-          <TableCell>{result[1]}</TableCell>
-          <TableCell>{result[2]}</TableCell>
-          <TableCell>{result[3]}</TableCell>
-          <TableCell>{result[4]}</TableCell>
-          <TableCell>
-            <Button>
-              <InputAdornment>
-                <AddCircleIcon />
-              </InputAdornment>
-            </Button>
-          </TableCell>
-        </TableRow>
-      )
+      return result.map((cancion) => {
+        return(
+          <TableRow>
+            <TableCell>{cancion.name}</TableCell>
+            <TableCell>{cancion.artist.name}</TableCell>
+            <TableCell>{cancion.album}</TableCell>
+            <TableCell>{cancion.duration}</TableCell>
+            <TableCell>
+              <Button onClick = {() => {agregar(cancion)}}>
+                <InputAdornment>
+                  <AddCircleIcon />
+                </InputAdornment>
+              </Button>
+            </TableCell>
+          </TableRow>
+        )
+      })
     }
   }
 
@@ -161,6 +177,62 @@ export const Playlist = () => {
     if(result.length === 0) {
       return(
         <Typography className = {classes.Results_noResults} variant = 'body2'>No hay resultados: utilizar la barra de búsqueda para encontrar canciones</Typography>
+      )
+    } else {
+      return;
+    }
+  }
+
+  const addVote = () => {
+    if(vote === '0' || vote === '2'){
+      setVote('1');
+    } else {
+      setVote('0');
+    }
+  }
+
+  const subtractVote = () => {
+    if(vote === '0' || vote === '1'){
+      setVote('2');
+    } else {
+      setVote('0');
+    }
+  }
+  
+
+  const yourPlaylist = () => {
+    if(tuPlaylist.length > 0){
+      return tuPlaylist.map((cancion) => {
+        return(
+          <TableRow>
+            <TableCell>{cancion.name}</TableCell>
+            <TableCell>{cancion.artist.name}</TableCell>
+            <TableCell>{cancion.duration}</TableCell>
+            <TableCell>{voto}</TableCell>
+            <TableCell>
+              <Button onClick = {() => {addVote()}}>
+                <InputAdornment>
+                  <ThumbUpAltIcon />
+                </InputAdornment>
+              </Button>
+              <Button onClick = {() => {subtractVote()}}>
+                <InputAdornment>
+                  <ThumbDownAltIcon />
+                </InputAdornment>
+              </Button>
+            </TableCell>
+          </TableRow>
+        )
+      })
+    }
+  }
+
+  const hideNoPlaylist = () => {
+    if(tuPlaylist.length === 0){
+      return(
+        <Card className = {classes.emptyPlaylistCard} variant = 'outlined'>
+          <Typography className = {classes.playlist_noResults} variant = 'h6'>UPS!, TU PLAYLIST AÚN ESTÁ VACÍA<span className = {classes.agregeCanciones}>Comienza a agregar canciones</span></Typography>  
+        </Card>
       )
     } else {
       return;
@@ -190,8 +262,10 @@ export const Playlist = () => {
               <TableCell className = {classes.Results_tableCell}>Duración</TableCell>
               <TableCell className = {classes.Results_tableCell}>Agregar</TableCell>
             </TableRow>
-            {renderResult()}
           </TableHead>
+          <TableBody>
+              {renderResult()}
+          </TableBody>
         </Table>
         {hideNoResultMessage()}
       </Card>
@@ -208,10 +282,11 @@ export const Playlist = () => {
               <TableCell className = {classes.playlist_tableCell}>Votar</TableCell>
             </TableRow>
           </TableHead>
+          <TableBody>
+            {yourPlaylist()}
+          </TableBody>
         </Table>
-        <Card className = {classes.emptyPlaylistCard} variant = 'outlined'>
-          <Typography className = {classes.playlist_noResults} variant = 'h6'>UPS!, TU PLAYLIST AÚN ESTÁ VACÍA<span className = {classes.agregeCanciones}>Comienza a agregar canciones</span></Typography>
-        </Card>
+          {hideNoPlaylist()}
       </Card> 
     </div>
     
